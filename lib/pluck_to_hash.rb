@@ -62,4 +62,6 @@ module PluckToHash
   end
 end
 
-ActiveRecord::Base.send(:include, PluckToHash)
+ActiveSupport.on_load(:active_record) do
+  include PluckToHash
+end
