@@ -51,7 +51,7 @@ shared_context 'essentials' do
   context 'the model does not have the attribute specified' do
     it 'raises an error' do
       expect do
-        TestModel.all.pluck_to_hash(:foo)
+        TestModel.all.pluck_to_hash('test_models.foo')
       end.to raise_error(ActiveRecord::StatementInvalid)
     end
   end
@@ -92,7 +92,7 @@ shared_context 'making sure alias is fine' do
     context 'the model does not have the attribute specified' do
       it 'raises an error' do
         expect do
-          TestModel.all.pluck_h(:foo)
+          TestModel.all.pluck_h('test_models.foo')
         end.to raise_error(ActiveRecord::StatementInvalid)
       end
     end

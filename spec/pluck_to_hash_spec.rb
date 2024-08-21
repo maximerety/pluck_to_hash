@@ -38,9 +38,13 @@ describe 'PluckToHash' do
       end
 
       it 'plucks coalesce as correctly' do
-        TestModel.pluck_to_hash('coalesce(sum(price_1 - price_2), 0) as difference', 'count(test_models.id) as count').each do |result|
+        columns = [
+          Arel.sql('COALESCE(SUM(price_1 - price_2), 0) AS difference'),
+          Arel.sql('COUNT(test_models.id) AS cnt')
+        ]
+        TestModel.pluck_to_hash(*columns).each do |result|
           expect(result).to have_key('difference')
-          expect(result).to have_key('count')
+          expect(result).to have_key('cnt')
         end
       end
     end

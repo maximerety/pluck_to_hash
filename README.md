@@ -132,6 +132,18 @@ select          0.566667   0.010000   0.576667 (  0.590911)
 as_json         1.196667   0.010000   1.206667 (  1.222286)
 ```
 
+## Running the tests
+
+```shell
+# Start a local PostgreSQL instance on default port 5432, e.g. on macOS using homebrew:
+#
+#     brew services start postgresql
+#
+# Then:
+
+bin/test
+```
+
 ## Contributing
 
 1. Fork it ( https://github.com/girishso/pluck_to_hash/fork )

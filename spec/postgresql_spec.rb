@@ -11,10 +11,7 @@ describe 'PluckToHash with Postgres' do
     ActiveRecord::Base.remove_connection
     @db_name = "pluck_to_hash_test"
     %x( createdb -E UTF8 -T template0 #{@db_name} )
-    ActiveRecord::Base.establish_connection(
-      "adapter"  => "postgresql",
-      "database" => @db_name
-    )
+    ActiveRecord::Base.establish_connection(adapter: "postgresql", database: @db_name)
     run_migrations()
   end
 
