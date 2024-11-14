@@ -1,7 +1,6 @@
-# coding: utf-8
-lib = File.expand_path('../lib', __FILE__)
-$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'pluck_to_hash/version'
+# frozen_string_literal: true
+
+require_relative "lib/pluck_to_hash/version"
 
 Gem::Specification.new do |spec|
   spec.name          = "pluck_to_hash"
@@ -13,18 +12,19 @@ Gem::Specification.new do |spec|
   spec.homepage      = "https://github.com/girishso/pluck_to_hash"
   spec.license       = "MIT"
 
-  spec.files         = `git ls-files -z`.split("\x0")
-  spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
-  spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
+  # Specify which files should be added to the gem when it is released.
+  # The `git ls-files -z` loads the files in the RubyGem that have been added into git.
+  gemspec = File.basename(__FILE__)
+  spec.files = IO.popen(%w[git ls-files -z], chdir: __dir__, err: IO::NULL) do |ls|
+    ls.readlines("\x0", chomp: true).reject do |f|
+      (f == gemspec) ||
+        f.start_with?(*%w[bin/ test/ spec/ features/ .git appveyor Gemfile])
+    end
+  end
+  spec.bindir        = "exe"
+  spec.executables   = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_development_dependency "bundler", "~> 1.7"
-  spec.add_development_dependency "rake", "~> 10.0"
-  spec.add_development_dependency "sqlite3", "~> 1.3"
-  spec.add_development_dependency "pg", "~> 0.19.0"
-  spec.add_development_dependency "rspec", "~> 3.2"
-  spec.add_development_dependency "values", "~> 1.8"
-
-  spec.add_dependency "activerecord", ">= 4.0.2"
-  spec.add_dependency "activesupport", ">= 4.0.2"
+  spec.add_dependency "activerecord", ">= 7.1.0"
+  spec.add_dependency "activesupport", ">= 7.1.0"
 end

@@ -1,4 +1,8 @@
-require_relative "./pluck_to_hash/version"
+# frozen_string_literal: true
+
+require "active_support"
+
+require_relative "pluck_to_hash/version"
 
 module PluckToHash
   extend ActiveSupport::Concern
@@ -58,4 +62,6 @@ module PluckToHash
   end
 end
 
-ActiveRecord::Base.send(:include, PluckToHash)
+ActiveSupport.on_load(:active_record) do
+  include PluckToHash
+end

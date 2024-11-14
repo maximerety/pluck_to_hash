@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'active_record'
 
 def run_migrations
@@ -18,7 +20,7 @@ def run_migrations
 end
 
 class TestModel < ActiveRecord::Base
-  serialize :serialized_attribute, Array
+  serialize :serialized_attribute, type: Array
   has_many :test_model_children
 end
 

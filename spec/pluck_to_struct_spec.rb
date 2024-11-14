@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative './spec_helper'
 require 'values'
 
@@ -30,7 +32,7 @@ describe 'PluckToStruct' do
     context 'the model does not have the attribute specified' do
       it 'raises an error' do
         expect do
-          TestModel.all.pluck_s(:foo)
+          TestModel.all.pluck_s('test_models.foo')
         end.to raise_error(ActiveRecord::StatementInvalid)
       end
     end
